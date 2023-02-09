@@ -14,6 +14,7 @@ const menuOpen = document.querySelector(".burger");
 const menuClose = document.querySelector(".closeMenu");
 const navBar = document.querySelector(".menu");
 // Dom Elements
+console.log = function () {};
 
 searchBar.addEventListener("keypress", function (event) {
   console.log("Text input value: " + event.key);
@@ -586,6 +587,14 @@ function scrollSlide2(direction, area) {
   let maxScroll = area.scrollWidth - area.clientWidth;
 
   if (direction == "next") {
+    console.log(Math.ceil(area.scrollWidth / area.scrollLeft));
+    if (Math.ceil(area.scrollWidth / area.scrollLeft) < 5) {
+      console.log("fetch new");
+
+      trendPage += 1;
+      fetchTrend(trendPage);
+    }
+
     for (let step = 0; step <= mainCount + 2; step++) {
       // Runs 5 times, with values of step 0 through 4.
       // console.log(step);
@@ -605,13 +614,6 @@ function scrollSlide2(direction, area) {
     area.scrollLeft = mainCount * area.offsetWidth + goal;
     if (goal > 0) {
       console.log(area.scrollLeft);
-    }
-
-    if (Math.ceil(area.scrollWidth / area.scrollLeft) < 5) {
-      console.log("fetch new");
-
-      trendPage += 1;
-      fetchTrend(trendPage);
     }
 
     mainCount += 1;
@@ -732,10 +734,19 @@ fetch(
 
 let autoScroll = setInterval(() => {
   if (autoslide) {
-    // scrollSlide2("next", mainSlide.querySelector(".slide-show"));
+    scrollSlide2("next", mainSlide.querySelector(".slide-show"));
     // scrollSlide("next", mainSlide.querySelector(".slide-show"));
   }
 }, 3500);
+
+window.onblur = function () {
+  autoslide = false;
+};
+
+window.onfocus = function () {
+  console.log("i am back");
+  autoslide = true;
+};
 
 mainSlide.addEventListener("mouseenter", () => {
   clearInterval(autoScroll);
