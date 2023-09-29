@@ -151,7 +151,7 @@ function changeGenres() {
 typeFilter.addEventListener("change", changeGenres);
 console.log(genreFilter.options[0].value);
 (() => {
-  for (let i = 2022; i > 1965; i--) {
+  for (let i = 2024; i > 1965; i--) {
     // console.log(i);
     dateFilter.options[dateFilter.options.length] = new Option(i, i);
   }
