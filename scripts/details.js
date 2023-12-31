@@ -95,6 +95,7 @@ const movieCard = document.querySelector(".card-temp");
 // const nextField = document.querySelector(".next-rec");
 // Dom Elements
 
+let mando ;
 searchBar.addEventListener("keypress", function (event) {
   console.log("Text input value: " + event.key);
   console.log(event.data);
@@ -218,7 +219,8 @@ async function init() {
   mainTitle.querySelector(".title").innerHTML =
     raw.original_title ?? raw.original_name;
   document.title = raw.title ?? raw.original_name;
-
+  
+  mando = raw.original_title;
   console.log(
     raw.languages && ["ar", null].includes(raw.languages[0]),
     raw.spoken_languages &&
@@ -811,7 +813,15 @@ function plotSlides(trends, slideName) {
     let date = trend.release_date ?? trend.first_air_date;
     let detial = trend.overview;
     let card = movieCard.content.cloneNode(true);
+    if(mando == "Oppenheimer"){
+      console.log(title + "   " + date)
+    };
 
+    if(  date == undefined){
+      break
+      console.log("this is a pitch movieeee")
+      date = 200000
+    }
     card.querySelector(".card").href = `/pages/movie1.html#${trend.id}-${
       trend.title == null ? "tv" : "movie"
     }`;
